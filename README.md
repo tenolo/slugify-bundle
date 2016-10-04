@@ -1,1 +1,3 @@
-symfony.slugify
+# README #
+
+Still in progress.
