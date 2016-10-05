@@ -22,15 +22,19 @@ class SlugificationDelegator extends AbstractObjectDelegator implements Slugific
     /** @var ContainerInterface */
     protected $container;
 
+    /** @var CocurSlugifyInterface */
+    protected $slugify;
+
     /**
      * @param ContainerInterface $container
      * @param null               $default
      */
-    public function __construct(ContainerInterface $container, $default = null)
+    public function __construct(ContainerInterface $container, CocurSlugifyInterface $slugify, $default = null)
     {
         parent::__construct($default, new ServiceDepository($container));
 
         $this->container = $container;
+        $this->slugify = $slugify;
     }
 
     /**
@@ -71,7 +75,7 @@ class SlugificationDelegator extends AbstractObjectDelegator implements Slugific
      */
     protected function getSlugifier()
     {
-        return $this->getContainer()->get('slugify');
+        return $this->slugify;
     }
 
     /**

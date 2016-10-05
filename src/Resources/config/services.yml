@@ -5,7 +5,7 @@ parameters:
 services:
     tenolo_slugify.slugification:
         class: "%tenolo_slugify.slugification.class%"
-        arguments: ["@slugify", "@tenolo_slugify.slugger.default"]
+        arguments: ["@service_container", "@slugify", "@tenolo_slugify.slugger.default"]
 
     slugification:
         alias: tenolo_slugify.slugification
