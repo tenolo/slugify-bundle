@@ -5,7 +5,7 @@ namespace Tenolo\Bundle\SlugifyBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 /**
  * Class TenoloSurveyExtension
@@ -13,13 +13,13 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * @package Tenolo\Bundle\SlugifyBundle\DependencyInjection
  * @author  Jan Plückelmann
  */
-class TenoloSlugifyExtension extends Extension
+class TenoloSlugifyExtension extends ConfigurableExtension
 {
 
     /**
      * @inheritdoc
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function loadInternal(array $configs, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');

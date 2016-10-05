@@ -1,0 +1,25 @@
+parameters:
+    tenolo_slugify.slugification.class: Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegator
+    tenolo_slugify.slugger.default.class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\DefaultSlugger
+
+    tenolo_slugify.slug_listener.class: Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener
+
+services:
+
+    tenolo_slugify.slugification:
+        class: "%tenolo_slugify.slugification.class%"
+        arguments: ["@service_container", "@slugify", "tenolo_slugify.slugger.default"]
+
+    slugification:
+        alias: tenolo_slugify.slugification
+
+    tenolo_slugify.slugger.default:
+        class: "%tenolo_slugify.slugger.default.class%"
+
+    tenolo_slugify.slug_listener:
+        class: "%tenolo_slugify.slug_listener.class%"
+        arguments: ["@slugification"]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+            - { name: doctrine.event_listener, event: postLoad, method: postLoad }

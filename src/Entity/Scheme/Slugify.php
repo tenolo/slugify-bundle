@@ -2,6 +2,8 @@
 
 namespace Tenolo\Bundle\SlugifyBundle\Entity\Scheme;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Trait Slugify
  *
@@ -14,6 +16,7 @@ trait Slugify
 
     /**
      * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $slug;
 
