@@ -1,0 +1,14 @@
+parameters:
+    tenolo_slugify.slugification.class: Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegator
+    tenolo_slugify.slugger.default.class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\DefaultSlugger
+
+services:
+    tenolo_slugify.slugification:
+        class: "%tenolo_slugify.slugification.class%"
+        arguments: ["@slugify", "@tenolo_slugify.slugger.default"]
+
+    slugification:
+        alias: tenolo_slugify.slugification
+
+    tenolo_slugify.slugger.default:
+        class: "%tenolo_slugify.slugger.default.class%"

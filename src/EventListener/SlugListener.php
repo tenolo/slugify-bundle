@@ -5,7 +5,7 @@ namespace Tenolo\Bundle\SlugifyBundle\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
-use Tenolo\Bundle\SlugifyBundle\Slugification\SluggerDelegatorInterface;
+use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegatorInterface;
 
 /**
  * Class SurveySlugListener
@@ -17,15 +17,15 @@ use Tenolo\Bundle\SlugifyBundle\Slugification\SluggerDelegatorInterface;
 class SlugListener
 {
 
-    /** @var SluggerDelegatorInterface */
-    protected $slugger;
+    /** @var SlugificationDelegatorInterface */
+    protected $slugification;
 
     /**
-     * @param SluggerDelegatorInterface $slugger
+     * @param SlugificationDelegatorInterface $slugification
      */
-    public function __construct(SluggerDelegatorInterface $slugger)
+    public function __construct(SlugificationDelegatorInterface $slugification)
     {
-        $this->slugger = $slugger;
+        $this->slugification = $slugification;
     }
 
     /**
@@ -34,8 +34,10 @@ class SlugListener
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+        $reflection = new \ReflectionClass($entity);
 
-        if ($entity instanceof SlugifyInterface) {
+        if ($reflection->implementsInterface(SlugifyInterface::class)) {
+            /** @var SlugifyInterface $entity */
             $this->slugify($entity);
         }
     }
@@ -46,8 +48,10 @@ class SlugListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+        $reflection = new \ReflectionClass($entity);
 
-        if ($entity instanceof SlugifyInterface) {
+        if ($reflection->implementsInterface(SlugifyInterface::class)) {
+            /** @var SlugifyInterface $entity */
             $this->slugify($entity);
         }
     }
@@ -63,7 +67,7 @@ class SlugListener
         $slug = $slugify->getSlug();
 
         if (empty($slug)) {
-            $this->slugger->slugify($slugify);
+            $this->slugification->slugify($slugify);
         }
     }
 

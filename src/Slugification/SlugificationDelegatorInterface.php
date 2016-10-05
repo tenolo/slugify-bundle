@@ -5,13 +5,13 @@ namespace Tenolo\Bundle\SlugifyBundle\Slugification;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
 
 /**
- * Interface SluggerDelegatorInterface
+ * Interface SlugificationDelegatorInterface
  *
  * @package Tenolo\Bundle\SlugifyBundle\Slugification
  * @author  Nikita Loges
  * @company tenolo GbR
  */
-interface SluggerDelegatorInterface
+interface SlugificationDelegatorInterface
 {
 
     /**

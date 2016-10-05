@@ -1,6 +1,7 @@
 <?php
 
 namespace Tenolo\Bundle\SlugifyBundle\Slugification\Slugger;
+
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
 
 /**
