@@ -13,11 +13,6 @@ interface DefaultRawMaterialInterface
 {
 
     /**
-     * @return integer
-     */
-    public function getId();
-
-    /**
      * @return string
      */
     public function getName();

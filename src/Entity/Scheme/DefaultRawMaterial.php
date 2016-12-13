@@ -17,6 +17,6 @@ trait DefaultRawMaterial
      */
     public function getSlugRawMaterial()
     {
-        return $this->getId() . '-' . $this->getName();
+        return $this->getName();
     }
 }
