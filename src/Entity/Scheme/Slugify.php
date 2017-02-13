@@ -21,6 +21,12 @@ trait Slugify
     protected $slug;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $customSlug = false;
+
+    /**
      * @return string
      */
     public function getSlug()
@@ -34,5 +40,29 @@ trait Slugify
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSlug()
+    {
+        return !empty($this->slug);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCustomSlug()
+    {
+        return $this->customSlug;
+    }
+
+    /**
+     * @param bool $customSlug
+     */
+    public function setCustomSlug($customSlug)
+    {
+        $this->customSlug = $customSlug;
     }
 }

@@ -38,6 +38,7 @@ class UpdateSlugCommand extends ContainerAwareCommand
         /** @var ClassMetadata[] $allMetadata */
         $allMetadata = $entityManager->getMetadataFactory()->getAllMetadata();
 
+        /** @var SlugifyInterface[] $objects */
         $objects = [];
         $output->writeln('update slugs for following classes:');
 
@@ -63,7 +64,11 @@ class UpdateSlugCommand extends ContainerAwareCommand
         foreach ($objects as $one) {
             $progress->setMessage('update slug');
             $progress->advance();
-            $slugification->slugify($one);
+
+            if (!$one->hasSlug() || !$one->isCustomSlug()) {
+                $slugification->slugify($one);
+            }
+
             $entityManager->persist($one);
         }
 
