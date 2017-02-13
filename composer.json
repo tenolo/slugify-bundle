@@ -33,7 +33,7 @@
 
         "tenolo/utilities": "~1.4",
 
-        "cocur/slugify": "~2.3"
+        "cocur/slugify": "~2.4"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "~2.8|~3.0"
@@ -56,6 +56,7 @@
     },
     "extra": {
         "branch-alias": {
+            "dev-release/1.1": "1.1-dev",
             "dev-release/1.0": "1.0-dev"
         }
     },
