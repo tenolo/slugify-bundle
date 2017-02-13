@@ -20,12 +20,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('tenolo_survey');
-
-        $rootNode
-            ->children()
-            ->scalarNode('template_path')->defaultTrue()->end()
-            ->end();
+        $rootNode = $treeBuilder->root('tenolo_slugify');
 
         return $treeBuilder;
     }
