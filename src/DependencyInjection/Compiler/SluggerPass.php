@@ -15,18 +15,21 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class SluggerPass implements CompilerPassInterface
 {
 
+    CONST SERVICE_KEY = 'tenolo_slugify.slugification';
+    CONST TAG_KEY = 'tenolo_slugify.slugification.slugger';
+
     /**
      * @inheritdoc
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('tenolo_slugify.slugification')) {
+        if (!$container->hasDefinition(self::SERVICE_KEY)) {
             return;
         }
 
-        $definition = $container->getDefinition('tenolo_slugify.slugification');
+        $definition = $container->getDefinition(self::SERVICE_KEY);
 
-        foreach ($container->findTaggedServiceIds('tenolo_slugify.slugification.slugger') as $id => $params) {
+        foreach ($container->findTaggedServiceIds(self::TAG_KEY) as $id => $params) {
             if (!isset($params[0]['class'])) {
                 throw new \InvalidArgumentException('Tagged SluggerInterface needs to have `class` attributes.');
             }
