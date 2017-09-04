@@ -1,25 +1,30 @@
 parameters:
-    tenolo_slugify.slugification.class: Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegator
-    tenolo_slugify.slugger.default.class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\DefaultSlugger
-
-    tenolo_slugify.slug_listener.class: Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener
 
 services:
 
+    # slugification
     tenolo_slugify.slugification:
-        class: "%tenolo_slugify.slugification.class%"
+        class: Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegator
         arguments: ["@service_container", "@slugify", "tenolo_slugify.slugger.default"]
 
     slugification:
         alias: tenolo_slugify.slugification
 
     tenolo_slugify.slugger.default:
-        class: "%tenolo_slugify.slugger.default.class%"
+        class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\DefaultSlugger
 
+    # event listener
     tenolo_slugify.slug_listener:
-        class: "%tenolo_slugify.slug_listener.class%"
+        class: Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener
         arguments: ["@slugification"]
         tags:
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
             - { name: doctrine.event_listener, event: prePersist, method: prePersist }
             - { name: doctrine.event_listener, event: postLoad, method: postLoad }
+
+    # forms
+    tenolo_slugify.form_type.widget.slugify:
+        class: Tenolo\Bundle\SlugifyBundle\Form\Type\Widgets\SlugifyType
+        arguments: ["@slugify"]
+        tags:
+            - { name: form.type }

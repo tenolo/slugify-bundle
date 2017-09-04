@@ -23,7 +23,22 @@ interface SlugifyInterface
     public function setSlug($slug);
 
     /**
+     * @return bool
+     */
+    public function hasSlug();
+
+    /**
      * @return string
      */
     public function getSlugRawMaterial();
+
+    /**
+     * @return bool
+     */
+    public function isCustomSlug();
+
+    /**
+     * @param bool $customSlug
+     */
+    public function setCustomSlug($customSlug);
 }

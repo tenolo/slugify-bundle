@@ -79,7 +79,12 @@ class SlugListener
      */
     protected function slugify(SlugifyInterface $slugify, $checkEmpty = false)
     {
-        if ($checkEmpty and !empty($slugify->getSlug())) {
+        if ($checkEmpty && $slugify->hasSlug()) {
+            return;
+        }
+
+        // if custom slug is set, do not reset
+        if ($slugify->hasSlug() && $slugify->isCustomSlug()) {
             return;
         }
 
