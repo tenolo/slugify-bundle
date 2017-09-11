@@ -4,6 +4,7 @@ namespace Tenolo\Bundle\SlugifyBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class SluggerPass
@@ -15,29 +16,27 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class SluggerPass implements CompilerPassInterface
 {
 
-    CONST SERVICE_KEY = 'tenolo_slugify.slugification';
-    CONST TAG_KEY = 'tenolo_slugify.slugification.slugger';
-
     /**
      * @inheritdoc
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition(self::SERVICE_KEY)) {
+        if (!$container->hasDefinition('tenolo_slugify.slugification')) {
             return;
         }
 
-        $definition = $container->getDefinition(self::SERVICE_KEY);
+        $definition = $container->getDefinition('tenolo_slugify.slugification');
+        $tags = $container->findTaggedServiceIds('tenolo_slugify.slugification.slugger');
 
-        foreach ($container->findTaggedServiceIds(self::TAG_KEY) as $id => $params) {
-            if (!isset($params[0]['class'])) {
-                throw new \InvalidArgumentException('Tagged SluggerInterface needs to have `class` attributes.');
-            }
-
+        foreach ($tags as $id => $params) {
             foreach ($params as $param) {
+                if (!isset($param['class'])) {
+                    throw new \InvalidArgumentException('Tagged SluggerInterface needs to have `class` attributes.');
+                }
+
                 $definition->addMethodCall('addDelegate', [
                     $param['class'],
-                    $id
+                    new Reference($id)
                 ]);
             }
         }

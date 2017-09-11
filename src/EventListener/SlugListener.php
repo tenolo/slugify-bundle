@@ -4,7 +4,6 @@ namespace Tenolo\Bundle\SlugifyBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Mapping as ORM;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
 use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegatorInterface;
 

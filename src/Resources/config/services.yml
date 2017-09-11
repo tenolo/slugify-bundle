@@ -1,11 +1,11 @@
-parameters:
-
 services:
 
     # slugification
     tenolo_slugify.slugification:
         class: Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegator
-        arguments: ["@service_container", "@slugify", "tenolo_slugify.slugger.default"]
+        arguments:
+            - "@slugify"
+            - "@tenolo_slugify.slugger.default"
 
     slugification:
         alias: tenolo_slugify.slugification

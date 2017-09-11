@@ -3,11 +3,10 @@
 namespace Tenolo\Bundle\SlugifyBundle\Slugification;
 
 use Cocur\Slugify\SlugifyInterface as CocurSlugifyInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface as ORMSlugifyInterface;
 use Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\SluggerInterface;
 use Tenolo\Utilities\Delegation\AbstractObjectDelegator;
-use Tenolo\Utilities\Delegation\Depository\ServiceDepository;
+use Tenolo\Utilities\Delegation\Depository\ObjectDepository;
 
 /**
  * Class SlugificationDelegator
@@ -19,21 +18,17 @@ use Tenolo\Utilities\Delegation\Depository\ServiceDepository;
 class SlugificationDelegator extends AbstractObjectDelegator implements SlugificationDelegatorInterface
 {
 
-    /** @var ContainerInterface */
-    protected $container;
-
     /** @var CocurSlugifyInterface */
     protected $slugify;
 
     /**
-     * @param ContainerInterface $container
-     * @param null               $default
+     * @param CocurSlugifyInterface $slugify
+     * @param null                  $default
      */
-    public function __construct(ContainerInterface $container, CocurSlugifyInterface $slugify, $default = null)
+    public function __construct(CocurSlugifyInterface $slugify, $default = null)
     {
-        parent::__construct($default, new ServiceDepository($container));
+        parent::__construct($default, new ObjectDepository(SluggerInterface::class));
 
-        $this->container = $container;
         $this->slugify = $slugify;
     }
 
@@ -76,13 +71,5 @@ class SlugificationDelegator extends AbstractObjectDelegator implements Slugific
     protected function getSlugifier()
     {
         return $this->slugify;
-    }
-
-    /**
-     * @return ContainerInterface
-     */
-    protected function getContainer()
-    {
-        return $this->container;
     }
 }
