@@ -38,7 +38,7 @@
 
         "tenolo/utilities": "~1.4",
 
-        "mmoreram/symfony-bundle-dependencies": "~1.0|~2.0",
+        "mmoreram/symfony-bundle-dependencies": "~1.0",
         "cocur/slugify": "~2.4|~3.0"
     },
     "repositories": [
