@@ -3,16 +3,15 @@
 namespace Tenolo\Bundle\SlugifyBundle\Slugification;
 
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
-use Tenolo\Utilities\Delegation\AbstractDelegatorInterface;
 
 /**
- * Interface SlugificationDelegatorInterface
+ * Interface SlugificationInterface
  *
  * @package Tenolo\Bundle\SlugifyBundle\Slugification
  * @author  Nikita Loges
  * @company tenolo GbR
  */
-interface SlugificationDelegatorInterface extends AbstractDelegatorInterface
+interface SlugificationInterface
 {
 
     /**

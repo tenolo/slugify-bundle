@@ -1,6 +1,6 @@
 {
     "name": "tenolo/slugify-bundle",
-    "description": ".",
+    "description": "Converts specific data from entities into a slug.",
     "keywords": [
         "slugify",
         "symfony",
@@ -24,19 +24,17 @@
     "require": {
         "php": "~5.6|~7.0",
 
-        "symfony/framework-bundle": "~2.8|~3.0",
-        "symfony/config": "~2.8|~3.0",
-        "symfony/console": "~2.8|~3.0",
-        "symfony/http-kernel": "~2.8|~3.0",
-        "symfony/dependency-injection": "~2.8|~3.0",
-        "symfony/form": "~2.8|~3.0",
-        "symfony/validator": "~2.8|~3.0",
-        "symfony/options-resolver": "~2.8|~3.0",
+        "symfony/framework-bundle": "~2.8|~3.0|~4.0",
+        "symfony/config": "~2.8|~3.0|~4.0",
+        "symfony/console": "~2.8|~3.0|~4.0",
+        "symfony/http-kernel": "~2.8|~3.0|~4.0",
+        "symfony/dependency-injection": "~2.8|~3.0|~4.0",
+        "symfony/form": "~2.8|~3.0|~4.0",
+        "symfony/validator": "~2.8|~3.0|~4.0",
+        "symfony/options-resolver": "~2.8|~3.0|~4.0",
 
         "doctrine/orm": "~2.5",
         "doctrine/doctrine-bundle": "~1.6",
-
-        "tenolo/utilities": "~1.4",
 
         "mmoreram/symfony-bundle-dependencies": "~1.0",
         "cocur/slugify": "~2.4|~3.0"
@@ -50,11 +48,6 @@
     "autoload": {
         "psr-4": {
             "Tenolo\\Bundle\\SlugifyBundle\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tenolo\\Bundle\\SlugifyBundle\\Tests\\": "tests/"
         }
     },
     "extra": {

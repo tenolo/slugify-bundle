@@ -4,18 +4,15 @@ namespace Tenolo\Bundle\SlugifyBundle\Slugification;
 
 use Cocur\Slugify\SlugifyInterface as CocurSlugifyInterface;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface as ORMSlugifyInterface;
-use Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\SluggerInterface;
-use Tenolo\Utilities\Delegation\AbstractObjectDelegator;
-use Tenolo\Utilities\Delegation\Depository\ObjectDepository;
 
 /**
- * Class SlugificationDelegator
+ * Class Slugification
  *
  * @package Tenolo\Bundle\SlugifyBundle\Slugification
  * @author  Nikita Loges
  * @company tenolo GbR
  */
-class SlugificationDelegator extends AbstractObjectDelegator implements SlugificationDelegatorInterface
+class Slugification implements SlugificationInterface
 {
 
     /** @var CocurSlugifyInterface */
@@ -23,12 +20,9 @@ class SlugificationDelegator extends AbstractObjectDelegator implements Slugific
 
     /**
      * @param CocurSlugifyInterface $slugify
-     * @param null                  $default
      */
-    public function __construct(CocurSlugifyInterface $slugify, $default = null)
+    public function __construct(CocurSlugifyInterface $slugify)
     {
-        parent::__construct($default, new ObjectDepository(SluggerInterface::class));
-
         $this->slugify = $slugify;
     }
 
@@ -39,19 +33,11 @@ class SlugificationDelegator extends AbstractObjectDelegator implements Slugific
      */
     public function slugify(ORMSlugifyInterface $slugify)
     {
-        /** @var SluggerInterface $delegate */
-        $delegate = $this->getDelegateByObject($slugify);
-
-        // there is not delegate
-        if (is_null($delegate)) {
-            return null;
-        }
-
         // get the raw material for slugify
-        $rawMaterial = $delegate->getRawMaterial($slugify);
+        $rawMaterial = $slugify->getSlugRawMaterial();
 
         // there is not raw material
-        if (is_null($rawMaterial)) {
+        if ($rawMaterial === null) {
             return null;
         }
 

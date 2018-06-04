@@ -2,20 +2,18 @@ services:
 
     # slugification
     tenolo_slugify.slugification:
-        class: Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegator
+        class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugification
+        public: true
         arguments:
             - "@slugify"
-            - "@tenolo_slugify.slugger.default"
 
     slugification:
         alias: tenolo_slugify.slugification
 
-    tenolo_slugify.slugger.default:
-        class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugger\DefaultSlugger
-
     # event listener
     tenolo_slugify.slug_listener:
         class: Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener
+        public: false
         arguments: ["@slugification"]
         tags:
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
@@ -25,6 +23,7 @@ services:
     # forms
     tenolo_slugify.form_type.widget.slugify:
         class: Tenolo\Bundle\SlugifyBundle\Form\Type\Widgets\SlugifyType
+        public: false
         arguments: ["@slugify"]
         tags:
             - { name: form.type }

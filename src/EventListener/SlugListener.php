@@ -5,7 +5,7 @@ namespace Tenolo\Bundle\SlugifyBundle\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
-use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegatorInterface;
+use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationInterface;
 
 /**
  * Class SurveySlugListener
@@ -17,13 +17,13 @@ use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationDelegatorInterface;
 class SlugListener
 {
 
-    /** @var SlugificationDelegatorInterface */
+    /** @var SlugificationInterface */
     protected $slugification;
 
     /**
-     * @param SlugificationDelegatorInterface $slugification
+     * @param SlugificationInterface $slugification
      */
-    public function __construct(SlugificationDelegatorInterface $slugification)
+    public function __construct(SlugificationInterface $slugification)
     {
         $this->slugification = $slugification;
     }
