@@ -3,9 +3,7 @@
 namespace Tenolo\Bundle\SlugifyBundle;
 
 use Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle;
-use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Mmoreram\SymfonyBundleDependencies\DependentBundleInterface;
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -25,8 +23,6 @@ class TenoloSlugifyBundle extends Bundle implements DependentBundleInterface
     public static function getBundleDependencies(KernelInterface $kernel)
     {
         return [
-            FrameworkBundle::class,
-            DoctrineBundle::class,
             CocurSlugifyBundle::class,
         ];
     }
