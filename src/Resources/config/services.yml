@@ -14,7 +14,8 @@ services:
     tenolo_slugify.slug_listener:
         class: Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener
         public: false
-        arguments: ["@slugification"]
+        arguments:
+            - "@slugification"
         tags:
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
             - { name: doctrine.event_listener, event: prePersist, method: prePersist }
@@ -23,7 +24,8 @@ services:
     # forms
     tenolo_slugify.form_type.widget.slugify:
         class: Tenolo\Bundle\SlugifyBundle\Form\Type\Widgets\SlugifyType
-        public: false
-        arguments: ["@slugify"]
+        public: true
+        arguments:
+            - "@slugify"
         tags:
             - { name: form.type }
