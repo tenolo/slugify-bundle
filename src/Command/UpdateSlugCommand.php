@@ -2,12 +2,14 @@
 
 namespace Tenolo\Bundle\SlugifyBundle\Command;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
+use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationInterface;
 
 /**
  * Class UpdateSlugCommand
@@ -16,8 +18,26 @@ use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
  * @author  Nikita Loges
  * @company tenolo GbR
  */
-class UpdateSlugCommand extends ContainerAwareCommand
+class UpdateSlugCommand extends Command
 {
+
+    /** @var ManagerRegistry */
+    protected $registry;
+
+    /** @var SlugificationInterface */
+    protected $slugification;
+
+    /**
+     * @param ManagerRegistry        $registry
+     * @param SlugificationInterface $slugification
+     */
+    public function __construct(ManagerRegistry $registry, SlugificationInterface $slugification)
+    {
+        $this->registry = $registry;
+        $this->slugification = $slugification;
+
+        parent::__construct();
+    }
 
     /**
      * @inheritDoc
@@ -32,8 +52,8 @@ class UpdateSlugCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $entityManager = $this->getContainer()->get('doctrine.orm.default_entity_manager');
-        $slugification = $this->getContainer()->get('slugification');
+        $entityManager = $this->registry->getManager();
+        $slugification = $this->slugification;
 
         /** @var ClassMetadata[] $allMetadata */
         $allMetadata = $entityManager->getMetadataFactory()->getAllMetadata();

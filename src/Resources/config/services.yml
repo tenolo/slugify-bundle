@@ -1,31 +1,27 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
 
     # slugification
+    Tenolo\Bundle\SlugifyBundle\Slugification\Slugification: ~
+    Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationInterface: '@Tenolo\Bundle\SlugifyBundle\Slugification\Slugification'
+
     tenolo_slugify.slugification:
-        class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugification
-        public: true
-        arguments:
-            - "@slugify"
+        alias: 'Tenolo\Bundle\SlugifyBundle\Slugification\Slugification'
+        deprecated: true
 
     slugification:
-        alias: tenolo_slugify.slugification
+        alias: 'Tenolo\Bundle\SlugifyBundle\Slugification\Slugification'
+        deprecated: true
 
     # event listener
-    tenolo_slugify.slug_listener:
-        class: Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener
+    Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener:
         public: false
-        arguments:
-            - "@slugification"
-        tags:
-            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
-            - { name: doctrine.event_listener, event: prePersist, method: prePersist }
-            - { name: doctrine.event_listener, event: postLoad, method: postLoad }
 
     # forms
-    tenolo_slugify.form_type.widget.slugify:
-        class: Tenolo\Bundle\SlugifyBundle\Form\Type\Widgets\SlugifyType
-        public: true
-        arguments:
-            - "@slugify"
-        tags:
-            - { name: form.type }
+    Tenolo\Bundle\SlugifyBundle\Form\Type\Widgets\SlugifyType: ~
+
+    # command
+    Tenolo\Bundle\SlugifyBundle\Command\UpdateSlugCommand: ~
