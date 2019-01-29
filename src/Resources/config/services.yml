@@ -10,11 +10,9 @@ services:
 
     tenolo_slugify.slugification:
         alias: 'Tenolo\Bundle\SlugifyBundle\Slugification\Slugification'
-        deprecated: true
 
     slugification:
         alias: 'Tenolo\Bundle\SlugifyBundle\Slugification\Slugification'
-        deprecated: true
 
     # event listener
     Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener:
