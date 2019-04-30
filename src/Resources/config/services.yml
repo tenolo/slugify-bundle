@@ -16,6 +16,7 @@ services:
 
     # event listener
     Tenolo\Bundle\SlugifyBundle\EventListener\SlugListener:
+        tags: ['doctrine.event_subscriber']
         public: false
 
     # forms

@@ -2,9 +2,9 @@
 
 namespace Tenolo\Bundle\SlugifyBundle\EventListener;
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Tenolo\Bundle\SlugifyBundle\Entity\Interfaces\SlugifyInterface;
 use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationInterface;
 
@@ -15,7 +15,7 @@ use Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationInterface;
  * @author  Jan Plückelmann
  * @company tenolo GbR
  */
-class SlugListener implements EventSubscriberInterface
+class SlugListener implements EventSubscriber
 {
 
     /** @var SlugificationInterface */
@@ -32,7 +32,7 @@ class SlugListener implements EventSubscriberInterface
     /**
      * @inheritDoc
      */
-    public static function getSubscribedEvents()
+    public function getSubscribedEvents()
     {
         return [
             'preUpdate',
