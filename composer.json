@@ -38,12 +38,6 @@
 
         "cocur/slugify": "~2.4|~3.0"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repo.tenolo.com/"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Tenolo\\Bundle\\SlugifyBundle\\": "src/"
