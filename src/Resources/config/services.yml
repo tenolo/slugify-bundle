@@ -1,5 +1,8 @@
 services:
 
+    slugify:
+        class: Cocur\Slugify\Slugify
+
     # slugification
     tenolo_slugify.slugification:
         class: Tenolo\Bundle\SlugifyBundle\Slugification\Slugification
