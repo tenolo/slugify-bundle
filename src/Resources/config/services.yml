@@ -4,6 +4,9 @@ services:
         autoconfigure: true
         public: true
 
+    slugify:
+        class: Cocur\Slugify\Slugify
+
     # slugification
     Tenolo\Bundle\SlugifyBundle\Slugification\Slugification: ~
     Tenolo\Bundle\SlugifyBundle\Slugification\SlugificationInterface: '@Tenolo\Bundle\SlugifyBundle\Slugification\Slugification'
